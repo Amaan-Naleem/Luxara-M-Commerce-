@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawable/ic_smartphone.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Phone body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M14,4 C14,2.895 14.895,2 16,2 L32,2 C33.105,2 34,2.895 34,4 L34,44 C34,45.105 33.105,46 32,46 L16,46 C14.895,46 14,45.105 14,44 Z" />
+
+    <!-- Screen area -->
+    <path
+        android:fillColor="#1A1A2E"
+        android:pathData="M16,8 L32,8 L32,38 L16,38 Z" />
+
+    <!-- Home button / notch indicator -->
+    <path
+        android:fillColor="#E94560"
+        android:pathData="M22,41 C22,39.895 22.895,39 24,39 C25.105,39 26,39.895 26,41 C26,42.105 25.105,43 24,43 C22.895,43 22,42.105 22,41 Z" />
+
+    <!-- Speaker grille -->
+    <path
+        android:fillColor="#CCCCCC"
+        android:pathData="M20,5.5 L28,5.5"
+        android:strokeColor="#CCCCCC"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round" />
+
+    <!-- Screen shine / reflection line -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#33FFFFFF"
+        android:strokeWidth="1"
+        android:pathData="M18,10 L18,36"
+        android:strokeLineCap="round" />
+
+</vector>

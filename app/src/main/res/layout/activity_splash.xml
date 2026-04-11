@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/splash_background"
+    tools:context=".activity.SplashActivity">
+
+    <!-- ═══════════════════════════════════════════
+         TOP GRADIENT OVERLAY (decorative surface)
+    ════════════════════════════════════════════ -->
+    <View
+        android:id="@+id/view_gradient_overlay"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:background="@drawable/bg_top_gradient"
+        android:alpha="0.6"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- ═══════════════════════════════════════════
+         CENTER CONTENT GROUP (chained vertically)
+    ════════════════════════════════════════════ -->
+
+    <!-- App Logo Icon -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:src="@mipmap/ic_launcher"
+        android:contentDescription="@string/logo_description"
+        app:shapeAppearanceOverlay="@style/CircleAppearance"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_established"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.42" />
+
+    <!-- Established Label -->
+    <TextView
+        android:id="@+id/tv_established"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/established"
+        android:textSize="10sp"
+        android:textColor="@color/color_gold_accent"
+        android:letterSpacing="0.6"
+        android:textAllCaps="true"
+        android:fontFamily="serif"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_logo"
+        app:layout_constraintBottom_toTopOf="@id/tv_app_name" />
+
+    <!-- App Name: LUXARA -->
+    <TextView
+        android:id="@+id/tv_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/app_name_display"
+        android:textSize="46sp"
+        android:textStyle="bold"
+        android:textColor="@color/color_text_primary"
+        android:fontFamily="serif"
+        android:letterSpacing="-0.04"
+        android:lineSpacingMultiplier="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_established"
+        app:layout_constraintBottom_toTopOf="@id/view_divider" />
+
+    <!-- Gold Thin Divider -->
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="48dp"
+        android:layout_height="1.5dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/bg_gold_divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_app_name"
+        app:layout_constraintBottom_toTopOf="@id/tv_tagline" />
+
+    <!-- Tagline -->
+    <TextView
+        android:id="@+id/tv_tagline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/tagline"
+        android:textSize="12sp"
+        android:textColor="@color/color_text_secondary"
+        android:letterSpacing="0.3"
+        android:textAllCaps="true"
+        android:fontFamily="sans-serif"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_divider"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    <ProgressBar
+        android:id="@+id/splashProgressbar"
+        style="@style/Widget.Material3.LinearProgressIndicator"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="28dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/color_gold_accent"
+        android:progressTint="@color/color_gold_accent"
+        android:trackTint="@color/color_progress_track"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_version" />
+
+
+    <TextView
+        android:id="@+id/tv_loading_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/loading"
+        android:textSize="9sp"
+        android:textColor="@color/color_text_hint"
+        android:letterSpacing="0.1"
+        android:textAllCaps="true"
+        android:fontFamily="sans-serif"
+        app:layout_constraintStart_toStartOf="@id/splashProgressbar"
+        app:layout_constraintBottom_toTopOf="@id/splashProgressbar" />
+
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/version"
+        android:textSize="9sp"
+        android:textColor="@color/color_text_hint"
+        android:letterSpacing="0.05"
+        android:fontFamily="sans-serif"
+        app:layout_constraintEnd_toEndOf="@id/splashProgressbar"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

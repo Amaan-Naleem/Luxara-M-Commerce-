@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/btn_checkout_bg.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:startColor="#40C4A0"
+        android:endColor="#00A876"
+        android:angle="135" />
+    <corners android:radius="16dp" />
+</shape>

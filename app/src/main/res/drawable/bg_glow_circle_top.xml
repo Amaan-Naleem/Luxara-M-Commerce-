@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/bg_glow_circle_top.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <gradient
+        android:type="radial"
+        android:startColor="#33FF6B35"
+        android:endColor="#00FF6B35"
+        android:gradientRadius="50%p" />
+</shape>

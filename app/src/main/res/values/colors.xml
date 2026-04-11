@@ -140,4 +140,29 @@
     <color name="md_theme_surfaceContainer_highContrast">#E2E2E9</color>
     <color name="md_theme_surfaceContainerHigh_highContrast">#D3D4DB</color>
     <color name="md_theme_surfaceContainerHighest_highContrast">#C5C6CD</color>
+    <color name="luxara_gold">#D4AF37</color>
+    <color name="luxara_gold_light">#E5D3B3</color>
+    <color name="luxara_espresso">#3E2723</color>
+    <color name="luxara_taupe">#8D6E63</color>
+
+    <!-- ── Splash Screen Colors ── -->
+    <color name="splash_background">#FAF8F5</color>
+    <color name="logo_background">#1C1C1E</color>
+
+    <!-- ── Brand Gold Accent ── -->
+    <color name="color_gold_accent">#C8A96A</color>
+    <color name="color_gold_light">#E8C98A</color>
+    <color name="color_gold_dark">#B5925A</color>
+
+    <!-- ── Text Colors ── -->
+    <color name="color_text_primary">#1C1C1E</color>
+    <color name="color_text_secondary">#8A8A8E</color>
+    <color name="color_text_hint">#AEAEB2</color>
+
+    <!-- ── Progress Bar Track ── -->
+    <color name="color_progress_track">#EDEAE4</color>
+
+    <!-- ── Gradient Colors ── -->
+    <color name="color_gradient_start">#F0EBE0</color>
+    <color name="color_gradient_end">#FAF8F5</color>
 </resources>

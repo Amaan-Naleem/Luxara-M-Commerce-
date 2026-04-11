@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="38dp"
+    android:height="38dp"
+    android:viewportWidth="38"
+    android:viewportHeight="38">
+
+    <!-- Hook top arc -->
+    <path
+        android:pathData="M10,12 C10,12 14,8 19,8 C24,8 28,12 28,12 L30,10 C30,10 25,4 19,4 C13,4 8,10 8,10 Z"
+        android:fillColor="#D4A96A" />
+
+    <!-- Hanger shoulders -->
+    <path
+        android:pathData="M8,10 L10,12 L14,18 L14,30 L24,30 L24,18 L28,12 L30,10 L28,12 C26,15 22,17 19,17 C16,17 12,15 10,12 Z"
+        android:fillColor="#E8C98A" />
+
+    <!-- Hanger body shadow -->
+    <path
+        android:pathData="M14,18 L14,30 L24,30 L24,18 C22,19.5 20.5,20 19,20 C17.5,20 16,19.5 14,18 Z"
+        android:fillColor="#D4A96A" />
+
+    <!-- Center seam line -->
+    <path
+        android:pathData="M19,17 L19,30"
+        android:strokeColor="#C49558"
+        android:strokeWidth="0.8"
+        android:strokeAlpha="0.6"
+        android:fillColor="@android:color/transparent" />
+
+</vector>

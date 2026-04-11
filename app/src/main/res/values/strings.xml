@@ -1,3 +1,12 @@
 <resources>
+
+
     <string name="app_name">Luxara</string>
+    <string name="app_name_display">Luxara</string>
+    <string name="tagline">Premium Fashion Store</string>
+    <string name="established">Est. 2024</string>
+    <string name="loading">Loading</string>
+    <string name="version">v2.4.1</string>
+    <string name="logo_description">Luxara fashion brand logo</string>
+
 </resources>

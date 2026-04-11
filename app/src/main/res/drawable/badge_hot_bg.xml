@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- drawable/badge_hot_bg.xml  — red pill badge for "HOT" / "NEW" labels -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#E94560" />
+    <corners android:radius="20dp" />
+</shape>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/bg_btn_signin.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Pressed state -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="#CC4A1A"
+                android:endColor="#E84A20"
+                android:angle="135" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+    <!-- Normal state -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="linear"
+                android:startColor="#FF6B35"
+                android:centerColor="#FF5722"
+                android:endColor="#FF8C42"
+                android:angle="135" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+</selector>

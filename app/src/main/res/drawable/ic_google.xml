@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/ic_google.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Red top-left arc -->
+    <path
+        android:fillColor="#EA4335"
+        android:pathData="M5.266,9.765A7.077,7.077 0,0 1,12 4.909c1.69,0 3.218,0.6 4.413,1.575l3.287,-3.323C17.666,1.05 15.018,0 12,0 7.319,0 3.302,2.69 1.28,6.62l3.986,3.145Z" />
+
+    <!-- Blue bottom-left arc -->
+    <path
+        android:fillColor="#34A853"
+        android:pathData="M16.04,18.013c-1.09,0.703 -2.474,1.078 -4.04,1.078a7.077,7.077 0,0 1,-6.723 -4.823l-3.987,3.07C3.249,21.307 7.307,24 12,24c2.933,0 5.735,-1.043 7.834,-3l-3.793,-2.987Z" />
+
+    <!-- Yellow bottom-right -->
+    <path
+        android:fillColor="#FBBC05"
+        android:pathData="M19.834,21c2.195,-2.048 3.62,-5.096 3.62,-9 0,-0.71 -0.109,-1.473 -0.272,-2.182H12v4.637h6.436c-0.317,1.559 -1.17,2.766 -2.395,3.558L19.834,21Z" />
+
+    <!-- Red right arc -->
+    <path
+        android:fillColor="#EA4335"
+        android:pathData="M5.277,14.268A7.12,7.12 0,0 1,4.909 12c0 -0.782,0.125 -1.533,0.357 -2.235L1.28,6.62A11.783,11.783 0,0 0,0 12c0,1.86 0.445,3.61 1.281,5.157l3.996,-2.889Z" />
+
+</vector>
