@@ -8,5 +8,6 @@
     <string name="loading">Loading</string>
     <string name="version">v2.4.1</string>
     <string name="logo_description">Luxara fashion brand logo</string>
+    <string name="side_nav_home">Home</string>
 
 </resources>
