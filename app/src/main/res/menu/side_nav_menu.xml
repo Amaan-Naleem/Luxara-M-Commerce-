@@ -3,27 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
 
-        <item android:title="Home" />
+        <item
+            android:icon="@drawable/ic_home"
+            android:title="@string/sde_nav_home_title" />
 
         <item
 
-            android:title="Categories" />
+            android:icon="@drawable/ic_categories"
+            android:title="@string/side_nav_profile_title" />
 
         <item
 
-            android:title="Wishlist" />
+            android:icon="@drawable/ic_wishlist"
+            android:title="@string/side_nav_orders_title" />
 
         <item
 
-            android:title="Cart" />
+            android:icon="@drawable/ic_cart"
+            android:title="@string/side_nav_cart_title" />
 
         <item
 
-            android:title="My Orders" />
+            android:icon="@drawable/ic_wishlist"
+            android:title="@string/side_nav_orders_title"
+            android:checked="true"
+            />
 
         <item
 
-            android:title="Offers &amp; Promotions" />
+            android:icon="@drawable/ic_offers"
+            android:title="@string/side_nav_promotion_title" />
 
     </group>
 
@@ -31,21 +40,23 @@
 
         <item
 
-            android:title="Settings" />
+            android:icon="@drawable/ic_settings"
+            android:title="@string/side_nav_setting_tltle" />
 
         <item
 
-            android:title="Help &amp; Support" />
+            android:icon="@drawable/ic_help"
+            android:title="@string/side_nav_help_and_support_title" />
 
     </group>
 
     <!-- Logout Group (separated) -->
-    <group
-       >
+    <group>
 
         <item
+            android:icon="@drawable/ic_logout"
+            android:title="@string/side_nav_logout_title" />
 
-            android:title="Logout"/>
 
     </group>
 

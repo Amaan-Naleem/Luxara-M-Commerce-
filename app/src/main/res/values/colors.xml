@@ -165,4 +165,7 @@
     <!-- ── Gradient Colors ── -->
     <color name="color_gradient_start">#F0EBE0</color>
     <color name="color_gradient_end">#FAF8F5</color>
+
+    <!-- ── Navigation Colors ── -->
+    <color name="nav_icon_color">#44474E</color>
 </resources>

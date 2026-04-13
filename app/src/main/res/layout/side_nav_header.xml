@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:paddingBottom="20dp"
+    android:gravity="bottom"
+    android:background="@drawable/nav_header_background">
+
+    <FrameLayout
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="14dp">
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_default_avatar"
+            android:scaleType="centerCrop"
+            android:background="@drawable/circle_profile_border"
+            android:clipToOutline="true"
+            android:elevation="2dp"
+            android:contentDescription="Profile Picture" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Alexandra Monroe"
+        android:textColor="#1A1A2E"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.02"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:id="@+id/tv_user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="alexandra@luxara.com"
+        android:textColor="#6B6B8A"
+        android:textSize="13sp"
+        android:fontFamily="sans-serif"
+        android:letterSpacing="0.01" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="14dp"
+        android:gravity="start">
+
+        <TextView
+            android:id="@+id/tv_membership_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/badge_background"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.12"
+            android:paddingStart="10dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="5dp"
+            android:text="✦  LUXE MEMBER"
+            android:textColor="#C9A84C"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -9,5 +9,19 @@
     <string name="version">v2.4.1</string>
     <string name="logo_description">Luxara fashion brand logo</string>
     <string name="side_nav_home">Home</string>
+    <string name="sde_nav_home_title">Home</string>
+    <string name="side_nav_profile_title">Categories</string>
+    <string name="side_nav_orders_title">Wishlist</string>
+    <string name="side_nav_cart_title">Cart</string>
+    <string name="side_nav_promotion_title"><![CDATA[Offers & Promotions]]></string>
+    <string name="side_nav_setting_tltle">Settings</string>
+    <string name="side_nav_help_and_support_title"><![CDATA[Help & Support]]></string>
+    <string name="side_nav_logout_title">Logout</string>
+    <string name="bottom_nav_home_title">Home</string>
+    <string name="bottom_nav_category_title">Categories</string>
+    <string name="bottom_nav_wishlist_title">Wishlist</string>
+    <string name="bottom_nav_cart_title">Cart</string>
+    <string name="bottom_nav_profile_title">Profile</string>
+    <string name="search_hint">Search</string>
 
 </resources>
