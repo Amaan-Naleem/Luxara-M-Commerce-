@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Top bar -->
+    <path
+        android:pathData="M13,17.5 Q13,15.5 15,15.5 L33,15.5 Q35,15.5 35,17.5 Q35,19.5 33,19.5 L15,19.5 Q13,19.5 13,17.5 Z"
+        android:fillColor="#00D4F5" />
+
+    <!-- Top bar specular highlight -->
+    <path
+        android:pathData="M13,15.5 Q13,15.5 15,15.5 L33,15.5 Q35,15.5 35,15.5 L35,16.8 L13,16.8 Z"
+        android:fillColor="#D0F8FF"
+        android:fillAlpha="0.45" />
+
+    <!-- Middle bar -->
+    <path
+        android:pathData="M13,23.5 Q13,21.5 15,21.5 L33,21.5 Q35,21.5 35,23.5 Q35,25.5 33,25.5 L15,25.5 Q13,25.5 13,23.5 Z"
+        android:fillColor="#00E5FF" />
+
+    <!-- Middle bar specular highlight -->
+    <path
+        android:pathData="M13,21.5 Q13,21.5 15,21.5 L33,21.5 Q35,21.5 35,21.5 L35,22.8 L13,22.8 Z"
+        android:fillColor="#D0F8FF"
+        android:fillAlpha="0.55" />
+
+    <!-- Bottom bar -->
+    <path
+        android:pathData="M13,29.5 Q13,27.5 15,27.5 L33,27.5 Q35,27.5 35,29.5 Q35,31.5 33,31.5 L15,31.5 Q13,31.5 13,29.5 Z"
+        android:fillColor="#00D4F5" />
+
+    <!-- Bottom bar specular highlight -->
+    <path
+        android:pathData="M13,27.5 Q13,27.5 15,27.5 L33,27.5 Q35,27.5 35,27.5 L35,28.8 L13,28.8 Z"
+        android:fillColor="#D0F8FF"
+        android:fillAlpha="0.45" />
+
+</vector>

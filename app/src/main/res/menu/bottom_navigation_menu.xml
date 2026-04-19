@@ -2,31 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/bottom_nav_home"
         android:icon="@drawable/ic_nav_home"
         android:title="@string/bottom_nav_home_title"
         android:contentDescription="Navigate to Home" />
 
     <item
-        android:id="@+id/nav_categories"
+        android:id="@+id/bottom_nav_categories"
         android:icon="@drawable/ic_nav_categories"
         android:title="@string/bottom_nav_category_title"
         android:contentDescription="Browse Categories" />
 
     <item
-        android:id="@+id/nav_wishlist"
+        android:id="@+id/bottom_nav_wishlist"
         android:icon="@drawable/ic_nav_wishlist"
         android:title="@string/bottom_nav_wishlist_title"
         android:contentDescription="View Wishlist" />
 
     <item
-        android:id="@+id/nav_cart"
+        android:id="@+id/bottom_nav_cart"
         android:icon="@drawable/ic_nav_cart"
         android:title="@string/bottom_nav_cart_title"
         android:contentDescription="View Shopping Cart" />
 
     <item
-        android:id="@+id/nav_profile"
+        android:id="@+id/bottom_nav_profile"
         android:icon="@drawable/ic_nav_profile"
         android:title="@string/bottom_nav_profile_title"
         android:contentDescription="View Profile" />

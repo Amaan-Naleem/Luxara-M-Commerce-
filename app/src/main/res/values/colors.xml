@@ -168,4 +168,5 @@
 
     <!-- ── Navigation Colors ── -->
     <color name="nav_icon_color">#44474E</color>
+    <color name="color_butter">#FFF5D1</color>
 </resources>

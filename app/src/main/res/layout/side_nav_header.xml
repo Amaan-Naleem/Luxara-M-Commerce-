@@ -32,19 +32,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Alexandra Monroe"
-        android:textColor="#1A1A2E"
-        android:textSize="17sp"
+        android:textColor="@color/color_text_primary"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:fontFamily="sans-serif-medium"
         android:letterSpacing="0.02"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="2dp" />
 
     <TextView
         android:id="@+id/tv_user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="alexandra@luxara.com"
-        android:textColor="#6B6B8A"
+        android:textColor="@color/color_text_secondary"
         android:textSize="13sp"
         android:fontFamily="sans-serif"
         android:letterSpacing="0.01" />
@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="16dp"
         android:gravity="start">
 
         <TextView
@@ -61,16 +61,15 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@drawable/badge_background"
-            android:fontFamily="sans-serif-medium"
-            android:letterSpacing="0.12"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="5dp"
-            android:text="✦  LUXE MEMBER"
-            android:textColor="#C9A84C"
-            android:textSize="10sp"
-            android:textStyle="bold" />
+            android:fontFamily="sans-serif-black"
+            android:letterSpacing="0.1"
+            android:paddingStart="12dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="6dp"
+            android:text="@string/side_nav_luxe_member"
+            android:textColor="@color/color_gold_accent"
+            android:textSize="10sp" />
 
     </LinearLayout>
 

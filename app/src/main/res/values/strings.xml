@@ -17,11 +17,38 @@
     <string name="side_nav_setting_tltle">Settings</string>
     <string name="side_nav_help_and_support_title"><![CDATA[Help & Support]]></string>
     <string name="side_nav_logout_title">Logout</string>
+    <string name="side_nav_login_title">Login / Sign Up</string>
     <string name="bottom_nav_home_title">Home</string>
     <string name="bottom_nav_category_title">Categories</string>
     <string name="bottom_nav_wishlist_title">Wishlist</string>
     <string name="bottom_nav_cart_title">Cart</string>
     <string name="bottom_nav_profile_title">Profile</string>
-    <string name="search_hint">Search</string>
 
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="search_hint">Search...</string>
+
+    <string name="side_nav_luxe_member">✦ LUXE MEMBER</string>
+    <string name="side_nav_account_settings">Account Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Sign In Screen -->
+    <string name="sign_in_app_name">LUXARA</string>
+    <string name="sign_in_tagline">Curated Fashion. Redefined.</string>
+    <string name="sign_in_title">Welcome Back</string>
+    <string name="sign_in_subtitle">Sign in to continue your experience</string>
+    <string name="email_icon_desc">Email icon</string>
+    <string name="email_hint">Email Address</string>
+    <string name="password_icon_desc">Password icon</string>
+    <string name="password_hint">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="btn_sign_in">SIGN IN</string>
+    <string name="divider_or">or</string>
+    <string name="btn_google">Continue with Google</string>
+    <string name="new_to_luxara">New to Luxara? </string>
+    <string name="create_account">Create Account</string>
+    <string name="login_page">Login</string>
 </resources>
