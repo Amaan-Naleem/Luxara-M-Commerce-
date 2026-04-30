@@ -51,4 +51,10 @@
     <string name="new_to_luxara">New to Luxara? </string>
     <string name="create_account">Create Account</string>
     <string name="login_page">Login</string>
+
+    <!-- Side Nav Header -->
+    <string name="profile_picture_desc">Profile Picture</string>
+    <string name="user_name_placeholder">Alexandra Monroe</string>
+    <string name="user_email_placeholder">alexandra@luxara.com</string>
+    <string name="verified_icon_desc">Verified User</string>
 </resources>

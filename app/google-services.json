@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "154876290228",
+    "project_id": "luxara-6bed7",
+    "storage_bucket": "luxara-6bed7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:154876290228:android:76b82af8c9b9cf341e23e1",
+        "android_client_info": {
+          "package_name": "lk.jiat.luxara"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTc96TlMcden1j1Utr8a52yvXDDe3Z1NY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

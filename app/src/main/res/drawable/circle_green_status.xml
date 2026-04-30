@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    circle_green_status.xml
+    Usage: android:background="@drawable/circle_green_status"
+    Apply to a 12dp x 12dp View positioned at the bottom-end of the avatar ring.
+    Add a dark border by wrapping in a 14dp View with circle_dark_border drawable,
+    or use android:padding="1dp" on a parent View.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Dark border ring that separates dot from avatar -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#1A1410" />
+        </shape>
+    </item>
+
+    <!-- Green fill with 2dp inset to create the border -->
+    <item
+        android:left="2dp"
+        android:top="2dp"
+        android:right="2dp"
+        android:bottom="2dp">
+        <shape android:shape="oval">
+            <solid android:color="#4ADE80" />
+        </shape>
+    </item>
+
+</layer-list>

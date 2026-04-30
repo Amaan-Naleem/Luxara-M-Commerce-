@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    circle_dark_bg.xml
+    Usage: android:background="@drawable/circle_dark_bg"
+    Apply to the avatar ImageView (74dp x 74dp) so it clips to a circle
+    with a deep dark fill visible before the image loads.
+    Pair with android:clipToOutline="true" on the ImageView.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <gradient
+        android:type="linear"
+        android:angle="145"
+        android:startColor="#2A2218"
+        android:endColor="#1A1410" />
+
+</shape>

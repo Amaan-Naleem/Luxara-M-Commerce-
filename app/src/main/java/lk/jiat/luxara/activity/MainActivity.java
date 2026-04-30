@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -14,12 +15,20 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import lk.jiat.luxara.R;
+import lk.jiat.luxara.databinding.ActivityMainBinding;
+import lk.jiat.luxara.databinding.SideNavHeaderBinding;
 import lk.jiat.luxara.fragment.CartFragment;
 import lk.jiat.luxara.fragment.CategoryFragment;
 import lk.jiat.luxara.fragment.HomeFragment;
@@ -28,32 +37,39 @@ import lk.jiat.luxara.fragment.OffersPromotionsFragment;
 import lk.jiat.luxara.fragment.ProfileFragment;
 import lk.jiat.luxara.fragment.SettingFragment;
 import lk.jiat.luxara.fragment.WishlistFragment;
+import lk.jiat.luxara.model.User;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {
 
+    private SideNavHeaderBinding sideNavHeaderBinding;
+    private ActivityMainBinding binding;
     private DrawerLayout drawerLayout;
     private MaterialToolbar toolbar;
     private NavigationView navigationView;
     private BottomNavigationView bottomNavigationView;
     private boolean isNavigating = false;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        drawerLayout = findViewById(R.id.drawerLayout);
-        toolbar = findViewById(R.id.toolbar);
-        navigationView = findViewById(R.id.side_navigation_view);
-        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+        View headerView = binding.sideNavigationView.getHeaderView(0);
+        sideNavHeaderBinding = SideNavHeaderBinding.bind(headerView);
 
+        drawerLayout = binding.drawerLayout;
+        toolbar = binding.toolbar;
+        navigationView = binding.sideNavigationView;
+        bottomNavigationView = binding.bottomNavigationView;
 
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
         drawerLayout.addDrawerListener(toggle);
-
         toggle.syncState();
 
 
@@ -70,10 +86,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
         bottomNavigationView.setOnItemSelectedListener(this);
 
-        if (savedInstanceState == null) {
-            loadFragment(new HomeFragment());
+        // check and load user details
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
+
+        FirebaseUser currentuser = firebaseAuth.getCurrentUser();
+        if (currentuser != null){
+            firebaseFirestore.collection("users").document(currentuser.getUid()).get()
+                    .addOnSuccessListener(ds -> {
+                        User user = ds.toObject(User.class);
+                        if (user != null) {
+                            sideNavHeaderBinding.headerUserName.setText(user.getName());
+                            sideNavHeaderBinding.headerUserEmail.setText(user.getEmail());
+
+                            Glide.with(MainActivity.this)
+                                    .load(user.getProfilePicUrl())
+                                    .circleCrop()
+                                    .into(sideNavHeaderBinding.headerProfilePic);
+                        }
+                    });
         }
+        
     }
 
 
@@ -90,11 +124,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Menu bottomNavMenu = bottomNavigationView.getMenu();
 
 
-            for (int i = 0; i < navMenu.size(); i++){
+            for (int i = 0; i < navMenu.size(); i++) {
                 navMenu.getItem(i).setChecked(false);
             }
 
-            for (int i = 0; i < bottomNavMenu.size(); i++){
+            for (int i = 0; i < bottomNavMenu.size(); i++) {
                 bottomNavMenu.getItem(i).setChecked(false);
             }
 

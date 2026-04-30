@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    badge_gold_pill.xml
+    Usage: android:background="@drawable/badge_gold_pill"
+    Apply to the membership badge TextView.
+    Recommended padding: paddingStart="8dp" paddingEnd="12dp"
+                         paddingTop="5dp"   paddingBottom="5dp"
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Translucent gold fill -->
+    <solid android:color="#1AD4AF37" />
+
+    <!-- Subtle gold border -->
+    <stroke
+        android:width="0.5dp"
+        android:color="#4DD4AF37" />
+
+    <!-- Fully rounded pill corners -->
+    <corners android:radius="20dp" />
+
+</shape>

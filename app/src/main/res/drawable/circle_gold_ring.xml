@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    circle_gold_ring.xml
+    Usage: android:background="@drawable/circle_gold_ring"
+    Apply to an 80dp x 80dp View behind the avatar ImageView.
+    The avatar (74dp) sits centered inside, leaving a 3dp gold border on each side.
+-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- Rotating gradient simulates a gold metallic sheen -->
+    <gradient
+        android:type="linear"
+        android:angle="135"
+        android:startColor="#D4AF37"
+        android:centerColor="#F5E27A"
+        android:endColor="#A07C1E" />
+
+</shape>

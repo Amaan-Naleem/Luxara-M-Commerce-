@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ic_star_gold.xml
+    Usage: app:drawableStartCompat="@drawable/ic_star_gold"
+    Use as the leading icon inside the LUXE MEMBER badge TextView.
+    Recommended size: 14dp x 14dp via android:drawableStart with
+    app:drawableTint="@color/color_gold_accent"
+    or set tint directly in the vector below.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="14dp"
+    android:height="14dp"
+    android:viewportWidth="14"
+    android:viewportHeight="14">
+
+    <!-- 5-point star path, centered at (7,7) -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="
+            M7,1.5
+            L8.545,5.045
+            L12.364,5.545
+            L9.682,8.159
+            L10.382,11.955
+            L7,10.136
+            L3.618,11.955
+            L4.318,8.159
+            L1.636,5.545
+            L5.455,5.045
+            Z" />
+
+</vector>

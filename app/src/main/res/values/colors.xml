@@ -169,4 +169,9 @@
     <!-- ── Navigation Colors ── -->
     <color name="nav_icon_color">#44474E</color>
     <color name="color_butter">#FFF5D1</color>
+
+    <!-- Additional colors for side_nav_header -->
+    <color name="color_cream_white">#FFFDFA</color>
+    <color name="color_gold_muted">#A68C52</color>
+    <color name="color_gold_divider">#40D4AF37</color>
 </resources>

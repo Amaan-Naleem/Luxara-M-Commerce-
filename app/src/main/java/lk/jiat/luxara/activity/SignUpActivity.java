@@ -2,28 +2,108 @@ package lk.jiat.luxara.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import lk.jiat.luxara.R;
+import lk.jiat.luxara.databinding.ActivitySignUpBinding;
+import lk.jiat.luxara.model.User;
 
 public class SignUpActivity extends AppCompatActivity {
+    private ActivitySignUpBinding binding;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore firebaseFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-        findViewById(R.id.signup_btn_signin).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this , SignUpActivity.class);
-                startActivity(intent);
+
+        binding = ActivitySignUpBinding.inflate(getLayoutInflater());
+
+        setContentView(binding.getRoot());
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        binding.signupBtnSignin.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+            startActivity(intent);
+            finish();
+        });
+
+        binding.signupBnSignup.setOnClickListener(view -> {
+            String name = binding.signupInputName.getText().toString().trim();
+            String email = binding.signupInputEmail.getText().toString().trim();
+            String password = binding.signupInputPassword.getText().toString().trim();
+
+
+            if (name.isEmpty()) {
+                binding.signupInputName.setError("Name Is Required !");
+                binding.signupInputName.requestFocus();
+                return;
             }
+            if (email.isEmpty()) {
+                binding.signupInputEmail.setError("Email Is Required !");
+                binding.signupInputEmail.requestFocus();
+                return;
+            }
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                binding.signupInputEmail.setError("Enter Valid Email !");
+                binding.signupInputEmail.requestFocus();
+                return;
+            }
+            if (password.isEmpty()) {
+                binding.signupInputPassword.setError("Password Is Required !");
+                binding.signupInputPassword.requestFocus();
+                return;
+            }
+            if (password.length() < 6) {
+                binding.signupInputPassword.setError("Password Must BE Atleast 6 Characters ");
+                binding.signupInputPassword.requestFocus();
+                return;
+            }
+            firebaseAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                             String uid  = task.getResult().getUser().getUid();
+
+                               User user = User.builder().uid(uid).name(name).email(email).build();
+
+                               firebaseFirestore.collection("users").document(uid).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                   @Override
+                                   public void onSuccess(Void unused) {
+                                       Toast.makeText(getApplicationContext(), "Saved Success", Toast.LENGTH_SHORT).show();
+                                       Intent intent = new Intent(SignUpActivity.this , MainActivity.class);
+                                       startActivity(intent);
+                                   }
+                               }).addOnFailureListener(new OnFailureListener() {
+                                   @Override
+                                   public void onFailure(@NonNull Exception e) {
+                                       
+                                   }
+                               });
+
+                            }
+                        }
+                    });
         });
     }
 }

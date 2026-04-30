@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ic_verified_gold.xml
+    Usage: android:src="@drawable/ic_verified_gold"
+    Place next to the user name TextView (16dp x 16dp ImageView).
+    Shows a gold circle with a white checkmark — premium verified badge style.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="16dp"
+    android:height="16dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+
+    <!-- Outer gold circle fill -->
+    <path
+        android:fillColor="#D4AF37"
+        android:pathData="
+            M8,0.5
+            C3.858,0.5 0.5,3.858 0.5,8
+            C0.5,12.142 3.858,15.5 8,15.5
+            C12.142,15.5 15.5,12.142 15.5,8
+            C15.5,3.858 12.142,0.5 8,0.5Z" />
+
+    <!-- Inner translucent overlay for depth -->
+    <path
+        android:fillColor="#22FFFFFF"
+        android:pathData="
+            M8,1.5
+            C4.41,1.5 1.5,4.41 1.5,8
+            C1.5,11.59 4.41,14.5 8,14.5
+            C11.59,14.5 14.5,11.59 14.5,8
+            C14.5,4.41 11.59,1.5 8,1.5Z" />
+
+    <!-- White checkmark -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M5,8 L7,10.2 L11,5.8" />
+
+</vector>

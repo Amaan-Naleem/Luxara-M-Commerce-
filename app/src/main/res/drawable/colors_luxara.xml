@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    colors_luxara.xml
+    Add these entries to your existing res/values/colors.xml
+    All colors are tuned for the dark luxury Luxara nav header.
+-->
+<resources>
+
+    <!-- Primary gold accent — used for badge text, stars, verified icon -->
+    <color name="color_gold_accent">#D4AF37</color>
+
+    <!-- Muted gold — used for email text, subtle labels -->
+    <color name="color_gold_muted">#99D4AF37</color>
+
+    <!-- Gold divider line (30% opacity) -->
+    <color name="color_gold_divider">#4DD4AF37</color>
+
+    <!-- Warm cream white — used for the user's display name -->
+    <color name="color_cream_white">#F5EDD4</color>
+
+    <!-- Header background base -->
+    <color name="color_header_bg_dark">#0E0B08</color>
+
+    <!-- Avatar fallback background -->
+    <color name="color_avatar_bg">#2A2218</color>
+
+    <!-- Online status green -->
+    <color name="color_status_online">#4ADE80</color>
+
+    <!-- Badge background (translucent gold) -->
+    <color name="color_badge_bg">#1AD4AF37</color>
+
+    <!-- Badge border (30% opacity gold) -->
+    <color name="color_badge_border">#4DD4AF37</color>
+
+</resources>
