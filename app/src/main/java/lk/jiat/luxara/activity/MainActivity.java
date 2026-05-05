@@ -2,6 +2,7 @@ package lk.jiat.luxara.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -92,22 +93,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         FirebaseUser currentuser = firebaseAuth.getCurrentUser();
-        if (currentuser != null){
+        if (currentuser != null) {
             firebaseFirestore.collection("users").document(currentuser.getUid()).get()
                     .addOnSuccessListener(ds -> {
-                        User user = ds.toObject(User.class);
-                        if (user != null) {
-                            sideNavHeaderBinding.headerUserName.setText(user.getName());
-                            sideNavHeaderBinding.headerUserEmail.setText(user.getEmail());
+                        if (ds.exists()) {
+                            User user = ds.toObject(User.class);
+                            if (user != null) {
+                                sideNavHeaderBinding.headerUserName.setText(user.getName());
+                                sideNavHeaderBinding.headerUserEmail.setText(user.getEmail());
 
-                            Glide.with(MainActivity.this)
-                                    .load(user.getProfilePicUrl())
-                                    .circleCrop()
-                                    .into(sideNavHeaderBinding.headerProfilePic);
+                                Glide.with(MainActivity.this)
+                                        .load(user.getProfilePicUrl())
+                                        .circleCrop()
+                                        .into(sideNavHeaderBinding.headerProfilePic);
+                            }
                         }
+                    }).addOnFailureListener(e -> {
+                        Log.e("Firestore", "Error: " + e.getMessage());
                     });
+            navigationView.getMenu().findItem(R.id.side_nav_login).setVisible(false);
+
+            navigationView.getMenu().findItem(R.id.side_nav_wishlist).setVisible(true);
+            navigationView.getMenu().findItem(R.id.side_nav_cart).setVisible(true);
+            navigationView.getMenu().findItem(R.id.side_nav_offers).setVisible(true);
+            navigationView.getMenu().findItem(R.id.side_nav_logout).setVisible(true);
         }
-        
+
     }
 
 
@@ -137,12 +148,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 navigationView.getMenu().findItem(R.id.side_nav_home).setChecked(true);
                 bottomNavigationView.getMenu().findItem(R.id.bottom_nav_home).setChecked(true);
             } else if (itemId == R.id.bottom_nav_profile) {
+                if (firebaseAuth.getCurrentUser() == null){
+                    Intent intent = new Intent(MainActivity.this , SignInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 loadFragment(new ProfileFragment());
+                bottomNavigationView.getMenu().findItem(R.id.bottom_nav_profile).setChecked(true);
             } else if (itemId == R.id.side_nav_wishlist || itemId == R.id.bottom_nav_wishlist) {
                 loadFragment(new WishlistFragment());
                 navigationView.getMenu().findItem(R.id.side_nav_wishlist).setChecked(true);
                 bottomNavigationView.getMenu().findItem(R.id.bottom_nav_wishlist).setChecked(true);
             } else if (itemId == R.id.side_nav_cart || itemId == R.id.bottom_nav_cart) {
+                if (firebaseAuth.getCurrentUser() == null){
+                    Intent intent = new Intent(MainActivity.this , SignInActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 loadFragment(new CartFragment());
                 navigationView.getMenu().findItem(R.id.side_nav_cart).setChecked(true);
                 bottomNavigationView.getMenu().findItem(R.id.bottom_nav_cart).setChecked(true);
@@ -159,7 +181,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent intent = new Intent(MainActivity.this, SignInActivity.class);
                 startActivity(intent);
             } else if (itemId == R.id.side_nav_logout) {
-                Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show();
+                firebaseAuth.signOut();
+                loadFragment(new HomeFragment()) ;
+
+
+                navigationView.getMenu().clear();
+                navigationView.inflateMenu(R.menu.side_nav_menu);
+
+
+                navigationView.removeHeaderView(sideNavHeaderBinding.getRoot());
+                navigationView.inflateHeaderView(R.layout.side_nav_header);
             }
 
             if (drawerLayout.isDrawerOpen(GravityCompat.START)) {

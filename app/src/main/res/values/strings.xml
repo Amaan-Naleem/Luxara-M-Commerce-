@@ -57,4 +57,6 @@
     <string name="user_name_placeholder">Alexandra Monroe</string>
     <string name="user_email_placeholder">alexandra@luxara.com</string>
     <string name="verified_icon_desc">Verified User</string>
+    <string name="side_nav_browse">Browse</string>
+    <string name="category_image">Category Image</string>
 </resources>
