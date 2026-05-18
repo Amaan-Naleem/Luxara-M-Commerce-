@@ -2,15 +2,19 @@ package lk.jiat.luxara.fragment;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -74,12 +78,37 @@ public class CategoryFragment extends Fragment {
                             QuerySnapshot result = task.getResult();
 //                        List<Category> categories  = result.toObjects(Category.class);
                        List<Category> categories = task.getResult().toObjects(Category.class);
-                        adapter = new CategoryAdapter(categories);
+                        adapter = new CategoryAdapter(categories,  category -> {
+
+
+                            Bundle bundle = new Bundle();
+                            bundle.putString("categoryId" , category.getCategoryId());
+
+
+                            ListingFragment fragment = new ListingFragment();
+                            fragment.setArguments(bundle);
+
+                            getParentFragmentManager().beginTransaction()
+                                    .replace(R.id.fragment_container, fragment)
+                                    .addToBackStack(null)
+                                    .commit();
+                        });
 
 
                         binding.recyclerViewCategories.setAdapter(adapter);
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@androidx.annotation.NonNull Exception e) {
+                        Log.e("Firestore","Error:"+e.getMessage());
+                    }
                 });
+        getActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
     }
 }

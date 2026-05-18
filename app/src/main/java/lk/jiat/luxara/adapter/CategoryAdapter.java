@@ -3,6 +3,8 @@ package lk.jiat.luxara.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,9 +20,11 @@ import lk.jiat.luxara.model.Category;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private List<Category> categories;
+    private OnCategoryClickListener listener;
 
-    public CategoryAdapter(List<Category> categories) {
+    public CategoryAdapter(List<Category> categories, OnCategoryClickListener listener) {
         this.categories = categories;
+        this.listener = listener;
     }
 
     @NonNull
@@ -39,6 +43,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 .load(category.getImageUrl())
                 .centerCrop()
                 .into(holder.categoryImage);
+
+
+        holder.itemView.setOnClickListener(v->{
+         Animation animation = AnimationUtils.loadAnimation(v.getContext(),R.anim.click_animation);
+            v.startAnimation(animation);
+            if (listener != null){
+                listener.onCategoryClick(category);
+            }
+        });
     }
 
     @Override
@@ -49,10 +62,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView categoryImage;
         TextView categoryName;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryImage = itemView.findViewById(R.id.category_image);
             categoryName = itemView.findViewById(R.id.categoy_name);
         }
+    }
+
+    public interface OnCategoryClickListener {
+        void onCategoryClick(Category category);
     }
 }

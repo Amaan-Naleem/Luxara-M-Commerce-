@@ -59,4 +59,9 @@
     <string name="verified_icon_desc">Verified User</string>
     <string name="side_nav_browse">Browse</string>
     <string name="category_image">Category Image</string>
+
+    <string name="add_to_wishlist">Add to wishlist</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="rating">Rating</string>
+    <string name="product_image">Product image</string>
 </resources>
