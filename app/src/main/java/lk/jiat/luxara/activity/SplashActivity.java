@@ -16,6 +16,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import lk.jiat.luxara.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -52,7 +55,13 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         findViewById(R.id.splashProgressbar).setVisibility(View.VISIBLE);
-                        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                        Intent intent;
+                        if (currentUser != null) {
+                            intent = new Intent(SplashActivity.this, MainActivity.class);
+                        } else {
+                            intent = new Intent(SplashActivity.this, SignInActivity.class);
+                        }
                         startActivity(intent);
                         finish();
                     }

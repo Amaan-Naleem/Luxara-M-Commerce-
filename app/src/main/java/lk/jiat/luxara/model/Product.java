@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
-private String productId;
-private String title;
-private String description;
-private double price;
-private String categoryId;
-private List<String> images;
-private int stockCount;
-private boolean status;
+    private String productId;
+    private String title;
+    private String description;
+    private double price;
+    private String categoryId;
+    private List<String> images;
+    private int stockCount;
+    private boolean status;
+    private double rating;
 }

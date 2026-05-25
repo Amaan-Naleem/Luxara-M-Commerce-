@@ -126,7 +126,7 @@ private String categoryId;
                        adapter = new ListingyAdapter(products, product -> {
 
                            Bundle bundle = new Bundle();
-                           bundle.putString("productId", product.getProductId()); // or getPid() based on your model
+                           bundle.putString("productId",product.getProductId());
 
                            ProductDetailsFragment fragment = new ProductDetailsFragment();
                            fragment.setArguments(bundle);

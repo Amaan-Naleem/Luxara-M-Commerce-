@@ -97,10 +97,12 @@ public class SignUpActivity extends AppCompatActivity {
                                }).addOnFailureListener(new OnFailureListener() {
                                    @Override
                                    public void onFailure(@NonNull Exception e) {
-                                       
+                                       Toast.makeText(SignUpActivity.this, "Firestore Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                                    }
                                });
 
+                            } else {
+                                Toast.makeText(SignUpActivity.this, "Sign Up Failed: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });

@@ -61,8 +61,8 @@ public class SignInActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 updateUI(firebaseAuth.getCurrentUser());
                             } else {
-                                Toast.makeText(SignInActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-//                                updateUI(null);
+                                String errorMessage = task.getException() != null ? task.getException().getMessage() : "Authentication Failed";
+                                Toast.makeText(SignInActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                             }
                         }
                     });
