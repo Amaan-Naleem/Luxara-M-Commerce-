@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="md_theme_primary">#415F91</color>
     <color name="md_theme_onPrimary">#FFFFFF</color>
@@ -174,4 +175,30 @@
     <color name="color_cream_white">#FFFDFA</color>
     <color name="color_gold_muted">#A68C52</color>
     <color name="color_gold_divider">#40D4AF37</color>
+
+    <!-- Luxury Fashion Palette -->
+
+        <!-- ── Brand Core ── -->
+        <color name="luxury_black">#1A1A1A</color>
+        <color name="luxury_cream">#FDFAF6</color>
+        <color name="luxury_gold">#C9A96E</color>
+        <color name="luxury_gold_alpha10">#1AC9A96E</color>
+
+        <!-- ── Backgrounds ── -->
+        <color name="luxury_bg_card">#FDFAF6</color>
+        <color name="luxury_bg_image">#F0EBE3</color>
+
+        <!-- ── Borders ── -->
+        <color name="luxury_border">#EDE8DF</color>
+        <color name="luxury_stroke">#EDE8DF</color>
+
+        <!-- ── Text ── -->
+        <color name="luxury_text_primary">#1A1A1A</color>
+        <color name="luxury_text_brand">#9E9189</color>
+        <color name="luxury_text_muted">#B0A89E</color>
+
+        <!-- ── Button ripple ── -->
+        <color name="luxury_ripple_gold">#40C9A96E</color>
+
+
 </resources>

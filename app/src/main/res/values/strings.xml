@@ -64,4 +64,27 @@
     <string name="add_to_cart">Add to cart</string>
     <string name="rating">Rating</string>
     <string name="product_image">Product image</string>
+
+    <!-- ══════════════════════════════════════
+            Product Card — Content Descriptions
+            ══════════════════════════════════════ -->
+    <string name="product_image_desc">Product image</string>
+    <string name="wishlist_desc">Add to wishlist</string>
+    <string name="wishlist_added_desc">Remove from wishlist</string>
+
+
+    <!-- ══════════════════════════════════════
+         Product Card — Labels
+         ══════════════════════════════════════ -->
+    <string name="label_discount_format">-%d%%</string>
+    <string name="label_save_format">Save $%d</string>
+    <string name="label_price_format">$%.2f</string>
+    <string name="label_rating_format">%.1f</string>
+    <string name="label_review_count_format">(%d)</string>
+
+    <!-- ══════════════════════════════════════
+         Accessibility
+         ══════════════════════════════════════ -->
+    <string name="cd_star_rating">Star rating</string>
+    <string name="cd_shopping_bag">Shopping bag icon</string>
 </resources>

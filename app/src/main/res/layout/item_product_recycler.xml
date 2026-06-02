@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardProduct"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="#FDFAF6"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:strokeColor="#EDE8DF"
+    app:strokeWidth="0.5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- ═══════════════════════════════════════════
+             IMAGE CONTAINER  (fixed aspect ratio 3:4)
+             ═══════════════════════════════════════════ -->
+        <FrameLayout
+            android:id="@+id/frameImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#F0EBE3"
+            app:layout_constraintDimensionRatio="3:4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Product Image -->
+            <ImageView
+                android:id="@+id/item_product_r_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/product_image_desc"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/ic_launcher_background" />
+
+            <!-- Subtle gradient scrim over image bottom -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/gradient_scrim_bottom"
+                android:alpha="0.45" />
+
+            <!-- ─── DISCOUNT BADGE — top-left ─── -->
+            <TextView
+                android:id="@+id/tvDiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_discount_badge"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.04"
+                android:paddingHorizontal="9dp"
+                android:paddingVertical="5dp"
+                android:text="-25%"
+                android:textColor="#FDFAF6"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <!-- ─── WISHLIST BUTTON — top-right ─── -->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnWishlist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|end"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/wishlist_desc"
+                app:backgroundTint="#FDFAF6"
+                app:elevation="3dp"
+                app:fabCustomSize="34dp"
+                app:maxImageSize="18dp"
+                app:rippleColor="#C9A96E20"
+                app:srcCompat="@drawable/ic_heart_outline"
+                app:tint="#1A1A1A" />
+
+        </FrameLayout>
+
+        <!-- ═══════════════════════════════════════════
+             CONTENT AREA
+             ═══════════════════════════════════════════ -->
+
+        <!-- Product Title -->
+        <TextView
+            android:id="@+id/item_product_r_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:ellipsize="end"
+            android:fontFamily="serif"
+            android:letterSpacing="0.02"
+            android:maxLines="2"
+            android:text="Structured Wool Blazer"
+            android:textColor="#1A1A1A"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/frameImage"
+            tools:ignore="HardcodedText" />
+
+        <!-- Brand Name -->
+        <TextView
+            android:id="@+id/tvBrand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="14dp"
+            android:fontFamily="sans-serif"
+            android:letterSpacing="0.08"
+            android:text="MAISON ÉLITE"
+            android:textAllCaps="true"
+            android:textColor="#9E9189"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_product_r_name"
+            tools:ignore="HardcodedText" />
+
+        <!-- ─── RATING ROW ─── -->
+        <LinearLayout
+            android:id="@+id/layoutRating"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvBrand">
+
+            <!-- Star icon (use a filled star in gold) -->
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_star_filled"
+                app:tint="#C9A96E" />
+
+            <!-- Numeric rating -->
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="4.8"
+                android:textColor="#1A1A1A"
+                android:textSize="11sp"
+                tools:ignore="HardcodedText" />
+
+            <!-- Review count -->
+            <TextView
+                android:id="@+id/tvReviewCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="sans-serif"
+                android:text="(240)"
+                android:textColor="#B0A89E"
+                android:textSize="10sp"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <!-- Thin separator line -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="14dp"
+            android:background="#EDE8DF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutRating" />
+
+        <!-- ─── PRICE ROW ─── -->
+        <LinearLayout
+            android:id="@+id/layoutPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider">
+
+            <!-- Current price -->
+            <TextView
+                android:id="@+id/item_product_r_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="serif"
+                android:text="LKR 299 "
+                android:textColor="#1A1A1A"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <!-- Original / strikethrough price -->
+            <TextView
+                android:id="@+id/tvOriginalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif"
+                android:text="$399"
+                android:textColor="#B0A89E"
+                android:textSize="12sp"
+                tools:ignore="HardcodedText" />
+
+            <!-- Spacer pushes savings label to end -->
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <!-- Savings chip -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_savings_chip"
+                android:fontFamily="sans-serif-medium"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="3dp"
+                android:text="Save $100"
+                android:textColor="#C9A96E"
+                android:textSize="9sp"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <!-- ─── ADD TO CART BUTTON ─── -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddToCart"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginBottom="14dp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.1"
+            android:text="ADD TO CART"
+            android:textAllCaps="true"
+            android:textColor="#FDFAF6"
+            android:textSize="11sp"
+            app:backgroundTint="#1A1A1A"
+            app:cornerRadius="23dp"
+            app:icon="@drawable/ic_shopping_bag"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconSize="16dp"
+            app:iconTint="#C9A96E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutPrice"
+            app:rippleColor="#C9A96E40"
+            tools:ignore="HardcodedText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
