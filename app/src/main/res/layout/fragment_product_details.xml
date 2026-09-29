@@ -401,7 +401,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/btnMinus"
+                            android:id="@+id/product_details_btn_minus"
                             android:layout_width="42dp"
                             android:layout_height="match_parent"
                             android:fontFamily="sans-serif-medium"
@@ -422,7 +422,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/btnPlus"
+                            android:id="@+id/product_details_btn_plus"
                             android:layout_width="42dp"
                             android:layout_height="match_parent"
                             android:fontFamily="sans-serif-medium"
@@ -521,9 +521,12 @@
                 android:layout_height="56dp"
                 android:layout_marginEnd="10dp"
                 android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackground"
                 app:cardBackgroundColor="#FFFFFF"
                 app:cardCornerRadius="28dp"
-                app:cardElevation="0dp"
+                app:cardElevation="2dp"
                 app:strokeColor="#1C1C1C"
                 app:strokeWidth="1.5dp">
 

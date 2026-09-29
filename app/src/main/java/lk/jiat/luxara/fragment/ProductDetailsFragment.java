@@ -1,5 +1,6 @@
 package lk.jiat.luxara.fragment;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,26 +18,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import lk.jiat.luxara.R;
+import lk.jiat.luxara.activity.MainActivity;
+import lk.jiat.luxara.activity.SignInActivity;
 import lk.jiat.luxara.adapter.ProductSliderAdapter;
 import lk.jiat.luxara.adapter.SectionAdapter;
 import lk.jiat.luxara.databinding.FragmentProductDetailsBinding;
+import lk.jiat.luxara.model.CartItem;
+import lk.jiat.luxara.util.AnimUtils;
+import lk.jiat.luxara.util.CartHelper;
 import lk.jiat.luxara.model.Product;
 
 public class ProductDetailsFragment extends Fragment {
     private FragmentProductDetailsBinding binding;
     private String productId;
+
+    private int quantity = 1;
+    private int maxQuantity = 10;
+    private Map<String, ChipGroup> attributeGroups = new HashMap<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,12 +116,50 @@ public class ProductDetailsFragment extends Fragment {
                         }
                     }
                 });
+        binding.productDetailsBtnMinus.setOnClickListener(v -> {
+            if (quantity > 1) {
+                quantity--;
+                binding.productDetailsQuantity.setText(String.valueOf(quantity));
+            }
+        });
+        binding.productDetailsBtnPlus.setOnClickListener(v -> {
+            if (quantity < maxQuantity) {
+                quantity++;
+                binding.productDetailsQuantity.setText(String.valueOf(quantity));
+            }
+        });
+
         loadTopSellproduct();
+
+        binding.productDetailsBtnAddCart.setOnClickListener(v -> {
+            AnimUtils.bounce(v);
+            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+            if (firebaseAuth.getCurrentUser() == null) {
+                Intent intent = new Intent(getActivity(), SignInActivity.class);
+                startActivity(intent);
+            } else {
+                List<CartItem.Attribute> attributes = getFinalSelection();
+                CartItem cartItem = new CartItem(productId, quantity, attributes);
+                String uid = firebaseAuth.getCurrentUser().getUid();
+                db.collection("users").document(uid).collection("cart")
+                        .document(productId)
+                        .set(cartItem)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getContext(),"Item Added to Cart",Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(e ->
+                                Toast.makeText(getContext(), "Failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
+            }
+        });
     }
 
     private void loadTopSellproduct() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("products")
+                .whereNotEqualTo("productId", productId)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -118,18 +171,26 @@ public class ProductDetailsFragment extends Fragment {
 
                             binding.productDetailsTopSellSection.itemSectionContainer.setLayoutManager(layoutManager);
 
-                            SectionAdapter adapter = new SectionAdapter(products, product -> {
+                            SectionAdapter adapter = new SectionAdapter(products, new SectionAdapter.OnListingItemClickListener() {
+                                @Override
+                                public void onListingItemClick(Product product) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("productId", product.getProductId());
 
-                                Bundle bundle = new Bundle();
-                                bundle.putString("productId", product.getProductId());
+                                    ProductDetailsFragment productDetailsFragment = new ProductDetailsFragment();
+                                    productDetailsFragment.setArguments(bundle);
 
-                                ProductDetailsFragment productDetailsFragment = new ProductDetailsFragment();
-                                productDetailsFragment.setArguments(bundle);
+                                    getParentFragmentManager().beginTransaction()
+                                            .setCustomAnimations(R.anim.slide_in_right, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out_right)
+                                            .replace(R.id.fragment_container, productDetailsFragment)
+                                            .addToBackStack(null)
+                                            .commit();
+                                }
 
-                                getParentFragmentManager().beginTransaction()
-                                        .replace(R.id.fragment_container, productDetailsFragment)
-                                        .addToBackStack(null)
-                                        .commit();
+                                @Override
+                                public void onAddToCartClick(Product product, List<CartItem.Attribute> attributes) {
+                                    CartHelper.addToCart(requireContext(), product, attributes);
+                                }
                             });
 
                             binding.productDetailsTopSellSection.itemSectionTitle.setText("Top Selling Products");
@@ -163,13 +224,17 @@ public class ProductDetailsFragment extends Fragment {
 
         //create Options
         ChipGroup group = new ChipGroup(getContext());
+
+
         group.setSelectionRequired(true);
         group.setSingleSelection(true);
 
         attribute.getValues().forEach(value -> {
             Chip chip = new Chip(getContext());
+            chip.setId(View.generateViewId());
             chip.setCheckable(true);
             chip.setChipStrokeWidth(3f);
+            chip.setTag(value);
             if ("color".equalsIgnoreCase(attribute.getType())) {
                 try {
                     chip.setChipBackgroundColor(ColorStateList.valueOf(Color.parseColor(value)));
@@ -186,6 +251,29 @@ public class ProductDetailsFragment extends Fragment {
         row.addView(group);
         container.addView(row);
 
+        attributeGroups.put(attribute.getName(), group);
+
+    }
+
+
+    private List<CartItem.Attribute> getFinalSelection() {
+//        StringBuilder result = new StringBuilder("Selected: \n");
+
+        List<CartItem.Attribute> attributes = new ArrayList<>();
+        for (Map.Entry<String, ChipGroup> entry : attributeGroups.entrySet()) {
+            String attributeName = entry.getKey();
+            ChipGroup chipGroup = entry.getValue();
+
+            int checkedChipId = chipGroup.getCheckedChipId();
+
+            if (checkedChipId != -1) {
+                Chip chip = getView().findViewById(checkedChipId);
+                String value = chip.getTag().toString();
+
+                attributes.add(new CartItem.Attribute(attributeName, value));
+            }
+        }
+        return attributes;
     }
 
     @Override

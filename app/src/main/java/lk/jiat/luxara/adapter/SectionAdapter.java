@@ -14,6 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
+import java.util.Map;
+
+import com.google.android.material.chip.ChipGroup;
+import lk.jiat.luxara.model.CartItem;
+import lk.jiat.luxara.util.AnimUtils;
+import lk.jiat.luxara.util.CartHelper;
+import android.view.ViewGroup;
 
 import lk.jiat.luxara.R;
 import lk.jiat.luxara.model.Product;
@@ -21,6 +28,7 @@ import lk.jiat.luxara.model.Product;
 public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHolder> {
     private List<Product> products;
     private OnListingItemClickListener listener;
+    private int lastAnimated = -1;
 
     public SectionAdapter(List<Product> products, OnListingItemClickListener listener) {
         this.products = products;
@@ -38,6 +46,9 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull SectionAdapter.ViewHolder holder, int position) {
         Product product = products.get(position);
+        boolean animate = position > lastAnimated;
+        if (animate) lastAnimated = position;
+        AnimUtils.enter(holder.itemView, position, animate);
         holder.productName.setText(product.getTitle());
         holder.productPrice.setText("LKR"+product.getPrice()+"");
         Glide.with(holder.itemView.getContext())
@@ -53,6 +64,15 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHold
                 listener.onListingItemClick(product);
             }
         });
+
+        holder.groups = CartHelper.bindAttributes(holder.itemView.getContext(), holder.attrContainer, product);
+
+        holder.btnAddToCart.setOnClickListener(v -> {
+            AnimUtils.bounce(v);
+            if (listener != null) {
+                listener.onAddToCartClick(product, CartHelper.getSelected(holder.groups));
+            }
+        });
     }
 
     @Override
@@ -64,16 +84,22 @@ public class SectionAdapter extends RecyclerView.Adapter<SectionAdapter.ViewHold
         ImageView productImage;
         TextView productName;
         TextView productPrice;
+        View btnAddToCart;
+        ViewGroup attrContainer;
+        Map<String, ChipGroup> groups;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             productImage = itemView.findViewById(R.id.item_product_r_image);
             productName = itemView.findViewById(R.id.item_product_r_name);
             productPrice = itemView.findViewById(R.id.item_product_r_price);
+            btnAddToCart = itemView.findViewById(R.id.btnAddToCart);
+            attrContainer = itemView.findViewById(R.id.cardAttributes);
         }
     }
 
     public interface OnListingItemClickListener {
         void onListingItemClick(Product product);
+        void onAddToCartClick(Product product, List<CartItem.Attribute> attributes);
     }
 }

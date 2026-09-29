@@ -1,5 +1,6 @@
 package lk.jiat.luxara.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -12,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -24,8 +27,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import lk.jiat.luxara.R;
+import lk.jiat.luxara.activity.SignInActivity;
 import lk.jiat.luxara.adapter.ListingyAdapter;
 import lk.jiat.luxara.databinding.FragmentListingBinding;
+import lk.jiat.luxara.model.CartItem;
+import lk.jiat.luxara.util.CartHelper;
 import lk.jiat.luxara.model.Product;
 
 
@@ -123,19 +129,26 @@ private String categoryId;
                 .addOnSuccessListener(ds ->{
                    if (!ds.isEmpty()){
                    List<Product> products = ds.toObjects(Product.class);
-                       adapter = new ListingyAdapter(products, product -> {
+                       adapter = new ListingyAdapter(products, new ListingyAdapter.OnListingItemClickListener() {
+                           @Override
+                           public void onListingItemClick(Product product) {
+                               Bundle bundle = new Bundle();
+                               bundle.putString("productId",product.getProductId());
 
-                           Bundle bundle = new Bundle();
-                           bundle.putString("productId",product.getProductId());
+                               ProductDetailsFragment fragment = new ProductDetailsFragment();
+                               fragment.setArguments(bundle);
 
-                           ProductDetailsFragment fragment = new ProductDetailsFragment();
-                           fragment.setArguments(bundle);
+                               getParentFragmentManager().beginTransaction()
+                                            .setCustomAnimations(R.anim.slide_in_right, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out_right)
+                                       .replace(R.id.fragment_container, fragment)
+                                       .addToBackStack(null)
+                                       .commit();
+                           }
 
-                           getParentFragmentManager().beginTransaction()
-                                   .replace(R.id.fragment_container, fragment)
-                                   .addToBackStack(null)
-                                   .commit();
-
+                           @Override
+                           public void onAddToCartClick(Product product, List<CartItem.Attribute> attributes) {
+                                    CartHelper.addToCart(requireContext(), product, attributes);
+                                }
                        });
                      binding.recyclerViewLkistening.setAdapter(adapter);
                    }

@@ -1,5 +1,6 @@
 package lk.jiat.luxara.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,16 +11,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lk.jiat.luxara.R;
+import lk.jiat.luxara.activity.SignInActivity;
 import lk.jiat.luxara.adapter.SectionAdapter;
 import lk.jiat.luxara.databinding.FragmentHomeBinding;
+import lk.jiat.luxara.model.CartItem;
+import lk.jiat.luxara.util.CartHelper;
 import lk.jiat.luxara.model.Product;
 
 
@@ -62,8 +69,26 @@ public class HomeFragment extends Fragment {
 
                             binding.homeTopSellSection.itemSectionContainer.setLayoutManager(layoutManager);
 
-                            SectionAdapter adapter = new SectionAdapter(products, product -> {
+                            SectionAdapter adapter = new SectionAdapter(products, new SectionAdapter.OnListingItemClickListener() {
+                                @Override
+                                public void onListingItemClick(Product product) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString("productId", product.getProductId());
 
+                                    ProductDetailsFragment productDetailsFragment = new ProductDetailsFragment();
+                                    productDetailsFragment.setArguments(bundle);
+
+                                    getParentFragmentManager().beginTransaction()
+                                            .setCustomAnimations(R.anim.slide_in_right, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out_right)
+                                            .replace(R.id.fragment_container, productDetailsFragment)
+                                            .addToBackStack(null)
+                                            .commit();
+                                }
+
+                                @Override
+                                public void onAddToCartClick(Product product, List<CartItem.Attribute> attributes) {
+                                    CartHelper.addToCart(requireContext(), product, attributes);
+                                }
                             });
 
                             binding.homeTopSellSection.itemSectionTitle.setText("Top Selling Products");

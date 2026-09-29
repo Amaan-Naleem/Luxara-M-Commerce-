@@ -1,6 +1,7 @@
 package lk.jiat.luxara.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +38,7 @@ import lk.jiat.luxara.fragment.ProfileFragment;
 import lk.jiat.luxara.fragment.SettingFragment;
 import lk.jiat.luxara.fragment.WishlistFragment;
 import lk.jiat.luxara.model.User;
+import lk.jiat.luxara.util.CartHelper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {
 
@@ -59,6 +61,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        SharedPreferences sp = getSharedPreferences("luxara", MODE_PRIVATE);
+        if (!sp.getBoolean("attrs_seeded", false)) {
+            CartHelper.seedProductAttributes(() -> sp.edit().putBoolean("attrs_seeded", true).apply());
+        }
 
         drawerLayout = binding.drawerLayout;
         toolbar = binding.toolbar;
@@ -250,6 +257,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void loadFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .replace(R.id.fragment_container, fragment)
                 .commit();
     }

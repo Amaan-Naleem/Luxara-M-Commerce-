@@ -89,6 +89,7 @@ public class CategoryFragment extends Fragment {
                             fragment.setArguments(bundle);
 
                             getParentFragmentManager().beginTransaction()
+                                            .setCustomAnimations(R.anim.slide_in_right, R.anim.fade_out, R.anim.fade_in, R.anim.slide_out_right)
                                     .replace(R.id.fragment_container, fragment)
                                     .addToBackStack(null)
                                     .commit();

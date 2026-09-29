@@ -143,6 +143,14 @@
                     tools:ignore="HardcodedText" />
             </LinearLayout>
 
+            <!-- Size / Color selectors -->
+            <LinearLayout
+                android:id="@+id/cardAttributes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical" />
+
             <!-- Price + Cart -->
             <LinearLayout
                 android:layout_width="match_parent"

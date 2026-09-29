@@ -87,4 +87,5 @@
          ══════════════════════════════════════ -->
     <string name="cd_star_rating">Star rating</string>
     <string name="cd_shopping_bag">Shopping bag icon</string>
+    <string name="currency_lkr">LKR %s</string>
 </resources>
