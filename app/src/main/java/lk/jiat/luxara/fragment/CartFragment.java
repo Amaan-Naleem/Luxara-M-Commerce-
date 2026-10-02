@@ -24,6 +24,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import lk.jiat.luxara.R;
 import lk.jiat.luxara.adapter.CartAdapter;
 import lk.jiat.luxara.databinding.FragmentCartBinding;
 import lk.jiat.luxara.model.CartItem;
@@ -81,6 +82,15 @@ public class CartFragment extends Fragment {
             if (binding == null || snap == null) return;
             List<CartItem> items = snap.toObjects(CartItem.class);
             loadProductsThenRender(db, items);
+        });
+
+
+        binding.cartBtnProceed.setOnClickListener(v ->{
+            CheckoutFragment checkoutFragment = new CheckoutFragment();
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, checkoutFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
     }
 
