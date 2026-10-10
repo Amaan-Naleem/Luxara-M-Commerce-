@@ -1107,7 +1107,7 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/tvSubtotal"
+                                android:id="@+id/checkout_subtotal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="serif"
@@ -1132,7 +1132,7 @@
                                 android:textSize="14sp" />
 
                             <TextView
-                                android:id="@+id/tvShipping"
+                                android:id="@+id/checkout_shipping"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="serif"
@@ -1194,7 +1194,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
-                                android:id="@+id/tvSummaryTotal"
+                                android:id="@+id/checkout_total"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="serif"
