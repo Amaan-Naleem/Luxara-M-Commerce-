@@ -1,4 +1,3 @@
-
 package lk.jiat.luxara.fragment;
 
 import android.app.Activity;
@@ -19,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import lk.jiat.luxara.R;
 import lk.jiat.luxara.databinding.FragmentCheckoutBinding;
 import lk.jiat.luxara.listener.FirestoreCallBack;
 import lk.jiat.luxara.model.CartItem;
@@ -69,9 +70,6 @@ public class CheckoutFragment extends Fragment {
 
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
 
-        binding.checkoutBtnProceed.setOnClickListener(v -> {
-            InitRequest req = new InitRequest();
-        });
         if (currentUser == null) {
             return;
         }
@@ -126,25 +124,35 @@ public class CheckoutFragment extends Fragment {
                 InitRequest req = new InitRequest();
                 req.setSandBox(true);
 
-                req.setMerchantId("1210XXX");
-                req.setMerchantSecret("MzUyNzAzODcwMTExODI0OTU5NjQxOTY2NjE0MDgzOTQ1MDg5Mzc5");
+                req.setMerchantId("1231416"); // real numeric ID from PayHere sandbox
+                req.setMerchantSecret("MzUyNzAzODcwMTExODI0OTU5NjQxOTY2NjE0MDgzOTQ1MDg5Mzc5"); // secret of the app registered with package lk.jiat.luxara
                 req.setCurrency("LKR");
-                req.setAmount(total);
-                req.setOrderId("ESOI-001");
-                req.getCustomer().setFirstName("Amaan");
+                req.setAmount(Math.round(total * 100.0) / 100.0);
+                req.setOrderId("ORD-" + System.currentTimeMillis());
+                req.setItemsDescription("");
+                req.getCustomer().setFirstName(binding.shippingDetailsName.getText().toString());
                 req.getCustomer().setLastName("Naleem");
                 req.getCustomer().setEmail("amaannaleem2006@gmail.com");
-                req.getCustomer().setPhone("+94743027890");
+                req.getCustomer().setPhone("0743027890");
                 req.getCustomer().getAddress().setAddress("No.1, Galle Road");
                 req.getCustomer().getAddress().setCity("Galle");
                 req.getCustomer().getAddress().setCountry("Sri Lanka");
 
-                req.setNotifyUrl("https://luxara.requestcatcher.com/");
+//                req.setNotifyUrl("https://luxara.requestcatcher.com/");
+
 
                 Intent intent = new Intent(getActivity(), PHMainActivity.class);
                 intent.putExtra(PHConstants.INTENT_EXTRA_DATA, req);
-            }
 
+                payhereLauncher.launch(intent);
+            } else {
+                Toast.makeText(requireContext(), "Loading totals, try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void saveOrder(String uid) {
+        {
             db.collection("users").document(uid).collection("cart")
                     .get()
                     .addOnSuccessListener(qds -> {
@@ -161,7 +169,7 @@ public class CheckoutFragment extends Fragment {
                         order.setOrderId(String.valueOf(System.currentTimeMillis()));
                         order.setUserId(uid);
                         order.setStatus("PENDING");
-                        order.setOrderDate(System.currentTimeMillis());
+                        order.setOrderDate(Timestamp.now());
 
                         Order.Address shippingAddress = Order.Address.builder()
                                 .name(binding.shippingDetailsName.getText().toString())
@@ -224,7 +232,7 @@ public class CheckoutFragment extends Fragment {
                                     }
                                 });
                     });
-        });
+        }
     }
 
     private void getCartItems(FirestoreCallBack<List<CartItem>> callBack) {
@@ -295,20 +303,33 @@ public class CheckoutFragment extends Fragment {
     private final ActivityResultLauncher<Intent> payhereLauncher =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
-                        if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                            Intent data = result.getData();
-                            if (data.hasExtra(PHConstants.INTENT_EXTRA_RESULT)) {
-                                PHResponse<StatusResponse> response = (PHResponse<StatusResponse>) data.getSerializableExtra(PHConstants.INTENT_EXTRA_RESULT);
-                                if (response != null && response.isSuccess()) {
-                                    StatusResponse statusResponse = response.getData();
-                                    Log.i("PAYHERE", "payment Successfull");
+                        Intent data = result.getData();
+                        Log.e("PAYHERE", "resultCode=" + result.getResultCode() + ", data=" + data);
+
+                        if (data != null && data.hasExtra(PHConstants.INTENT_EXTRA_RESULT)) {
+                            Object extra = data.getSerializableExtra(PHConstants.INTENT_EXTRA_RESULT);
+                            Log.e("PAYHERE", "result=" + extra);
+
+                            if (extra instanceof PHResponse) {
+                                PHResponse<?> response = (PHResponse<?>) extra;
+                                String msg = response.toString();
+                                if (response.getData() instanceof StatusResponse) {
+                                    msg = ((StatusResponse) response.getData()).getMessage();
+                                }
+                                if (response.isSuccess()) {
+                                        StatusResponse statusResponse = (StatusResponse) response.getData();
+                                        saveOrder(statusResponse  );
+
+                                    Log.i("PAYHERE", "Payment successful: " + msg);
                                 } else {
-                                    Log.e("PAYHERE", response.getData().getMessage());
+                                    Log.e("PAYHERE", "Payment failed: " + msg);
+                                }
+                                if (getContext() != null) {
+                                    Toast.makeText(getContext(), "PayHere: " + msg, Toast.LENGTH_LONG).show();
                                 }
                             }
-                        } else if (result.getResultCode() == Activity.RESULT_CANCELED) {
-                            Log.e("PAYHERE", "Payment Cancelled !");
-
+                        } else if (getContext() != null) {
+                            Toast.makeText(getContext(), "PayHere closed, no result (code " + result.getResultCode() + ")", Toast.LENGTH_LONG).show();
                         }
                     });
 
@@ -316,5 +337,102 @@ public class CheckoutFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void saveOrder(StatusResponse  statusResponse){
+        getCartItems(cartItems -> {
+
+            String uid = firebaseAuth.getCurrentUser().getUid();
+
+            Order order = new Order();
+            order.setOrderId(String.valueOf(System.currentTimeMillis()));
+            order.setUserId(uid);
+            order.setTotalAmount(total);
+            order.setStatus("PAID");
+            order.setOrderDate(Timestamp.now());
+
+
+            String shipping_name = binding.shippingDetailsName.getText().toString();
+            String shipping_email = binding.shippingDetailsEmail.getText().toString();
+            String shipping_contact = binding.shippingDetailsContact.getText().toString();
+            String shipping_address1 = binding.shippingDetailsAddress1.getText().toString();
+            String shipping_address2 = binding.shippingDetailsAddress2.getText().toString();
+            String shipping_city = binding.shippingDetailsCity.getText().toString();
+            String shipping_postCode = binding.shippingDetailsPostal.getText().toString();
+
+            Order.Address shippingAddress = Order.Address.builder().name(shipping_name).email(shipping_email).contact(shipping_contact).address1(shipping_address1).address2(shipping_address2).city(shipping_city).postcode(shipping_postCode).build();
+
+            order.setShippingAddress(shippingAddress);
+
+            if (!binding.shippingDetailsCheckBilling.isChecked()) {
+                String billing_name = binding.billingDetailsName.getText().toString();
+                String billing_email = binding.billingDetailsEmail.getText().toString();
+                String billing_contact = binding.billingDetailsContact.getText().toString();
+                String billing_address1 = binding.billingDetailsAddress1.getText().toString();
+                String billing_address2 = binding.billingDetailsAddress2.getText().toString();
+                String billing_city = binding.billingDetailsCity.getText().toString();
+                String billing_postCode = binding.billingDetailsPostal.getText().toString();
+
+                Order.Address billingAddress = Order.Address.builder().name(billing_name).email(billing_email).contact(billing_contact).address1(billing_address1).address2(billing_address2).city(billing_city).postcode(billing_postCode).build();
+
+                order.setBillingAddress(billingAddress);
+            }
+
+
+            ArrayList<String> productIds = new ArrayList<>();
+            cartItems.forEach(cartItem -> {
+                productIds.add(cartItem.getProductId());
+            });
+
+            List<Order.OrderItem> orderItems = new ArrayList<>();
+
+            getProductsByIds(productIds, data -> {
+
+                for (CartItem cartItem : cartItems) {
+                    Product product = data.get(cartItem.getProductId());
+
+                    if (product != null) {
+
+                        List<Order.OrderItem.Attribute> attributes = new ArrayList<>();
+
+                        for (CartItem.Attribute at : cartItem.getAttributes()) {
+                            Order.OrderItem.Attribute attribute = Order.OrderItem.Attribute.builder().name(at.getName()).value(at.getValue()).build();
+
+                            attributes.add(attribute);
+                        }
+
+                        Order.OrderItem orderItem = Order.OrderItem.builder().productId(cartItem.getProductId()).unitPrice(product.getPrice()).quantity(cartItem.getQuantity()).attributes(attributes).build();
+                        orderItems.add(orderItem);
+
+
+
+                        order.setOrderItems(orderItems);
+
+                    }
+                }
+                db.collection("orders").document().set(order).addOnSuccessListener(aVoid -> {
+                    Toast.makeText(getContext(), "Order Saved!", Toast.LENGTH_SHORT).show();
+
+                    // Clear cart
+                    db.collection("users").document(uid).collection("cart")
+                            .get()
+                            .addOnSuccessListener(qds -> {
+                                qds.getDocuments().forEach(ds -> {
+                                    ds.getReference().delete();
+                                });
+                            });
+
+
+                    getParentFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, new HomeFragment())
+                            .commit();
+
+                });
+
+            });
+
+
+        });
+
     }
 }
